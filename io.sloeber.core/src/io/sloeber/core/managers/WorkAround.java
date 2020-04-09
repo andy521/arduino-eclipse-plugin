@@ -106,10 +106,11 @@ public class WorkAround {
 		if(!boardsSloeberTXT.exists()) {
 			if (requestedFileToWorkAround.exists()) {
 				try {
+					String boardsTXT = FIRST_SLOEBER_WORKAROUND_LINE+"\n";
+					boardsTXT += FileUtils.readFileToString(requestedFileToWorkAround, Charset.defaultCharset());
+					boardsTXT = boardsTXT.replace("\r\n", "\n");
 					if (SystemUtils.IS_OS_WINDOWS) {
-						String boardsTXT = FIRST_SLOEBER_WORKAROUND_LINE+"\n";
-						boardsTXT += FileUtils.readFileToString(requestedFileToWorkAround, Charset.defaultCharset());
-						boardsTXT = boardsTXT.replace("\r\n", "\n");
+
 						
 						// replace FI '-DUSB_PRODUCT={build.usb_product}' with
 						// "-DUSB_PRODUCT=\"{build.usb_product}\""
@@ -124,9 +125,8 @@ public class WorkAround {
 						//quoting fixes for embedutils
 						boardsTXT = boardsTXT.replaceAll("\"?(-DMBEDTLS_\\S+)=\\\\?\"(mbedtls\\S+)\"\\\\?\"*", 	"\"$1=\\\\\"$2\\\\\"\"");
 
-
-						FileUtils.write(boardsSloeberTXT, boardsTXT, Charset.defaultCharset());
 					}
+					FileUtils.write(boardsSloeberTXT, boardsTXT, Charset.defaultCharset());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
