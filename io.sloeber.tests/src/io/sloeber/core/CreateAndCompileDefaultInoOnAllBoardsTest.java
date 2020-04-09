@@ -283,6 +283,7 @@ public class CreateAndCompileDefaultInoOnAllBoardsTest {
 //                options = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 //                options.put("cpu", "attiny25at1");
 //            }
+            System.out.println("Adding boards of "+curBoardFile.toString() );
             boards.addAll(BoardDescriptor.makeBoardDescriptors(curBoardFile, options));
         }
         // to avoid warnings set the upload port to some value
